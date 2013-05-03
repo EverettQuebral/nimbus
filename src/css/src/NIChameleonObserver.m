@@ -110,7 +110,9 @@ NSString* const NIJSONDidChangeNameKey = @"NIJSONNameKey";
                             componentsJoinedByString:@"/"];
     NSString* rootPath = NIPathForDocumentsResource(nil);
     NSString* hashedPath = [self pathFromPath:resultPath];
-    NSString* diskPath = [rootPath stringByAppendingPathComponent:hashedPath];
+    //NSString* diskPath = [rootPath stringByAppendingPathComponent:hashedPath];
+      
+      NSString* diskPath = [rootPath stringByAppendingPathComponent:resultPath];
     [responseObject writeToFile:diskPath atomically:YES];
     
     NIStylesheet* stylesheet = [_stylesheetCache stylesheetWithPath:resultPath loadFromDisk:NO];
@@ -129,9 +131,10 @@ NSString* const NIJSONDidChangeNameKey = @"NIJSONNameKey";
     }
 
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-    for (NIStylesheet* changedStylesheet in changedStylesheets) {
+    for (NIStylesheet* _stylesheet in changedStylesheets) {
+        NSLog(@"calling notification center for changedStyleSheet");
       [nc postNotificationName:NIStylesheetDidChangeNotification
-                        object:changedStylesheet
+                        object:_stylesheet
                       userInfo:nil];
     }
 

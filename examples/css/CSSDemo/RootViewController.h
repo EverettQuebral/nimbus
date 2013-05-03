@@ -23,6 +23,10 @@
   UIActivityIndicatorView* _activityIndicator;
   UILabel* _testLabel;
   UIButton* _button;
+    
 }
 
+@property (strong, nonatomic) NSNotificationCenter* _notificationCenter;
+@property (strong, nonatomic) NIStylesheet* _stylesheet;
+@property (strong, nonatomic) NIStylesheet* _commonStylesheet;
 @end

@@ -30,6 +30,10 @@
   BOOL animationToggle;
 }
 
+@synthesize _notificationCenter;
+@synthesize _stylesheet;
+@synthesize _commonStylesheet;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -39,15 +43,23 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-    NIStylesheetCache* stylesheetCache =
-    [(AppDelegate *)[UIApplication sharedApplication].delegate stylesheetCache];
-    NIStylesheet* stylesheet = [stylesheetCache stylesheetWithPath:@"css/root/root.css"];
-    NIStylesheet* common = [stylesheetCache stylesheetWithPath:@"css/common.css"];
-    _dom = [NIDOM domWithStylesheet:stylesheet andParentStyles:common];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stylesheetDidChange)
-                                                 name:NIStylesheetDidChangeNotification
-                                               object:stylesheet];
+    NIStylesheetCache* stylesheetCache = [(AppDelegate *)[UIApplication sharedApplication].delegate stylesheetCache];
+      
+    _stylesheet = [stylesheetCache stylesheetWithPath:@"css/root/root.css"];
+    _commonStylesheet = [stylesheetCache stylesheetWithPath:@"css/common.css"];
+    _dom = [NIDOM domWithStylesheet:_stylesheet andParentStyles:_commonStylesheet];
+      
+    NSLog(@"Setting NotificationCenter");
+      _notificationCenter = [NSNotificationCenter defaultCenter];
+//    [_notificationCenter addObserver:self
+//                           selector:@selector(stylesheetDidChange:)
+//                               name:NIStylesheetDidChangeNotification
+//                             object:stylesheet];
+      // for some reason, with object to stylesheet, the notification can't be fired 
+      [_notificationCenter addObserver:self
+                              selector:@selector(stylesheetDidChange:)
+                                  name:NIStylesheetDidChangeNotification
+                                object:_stylesheet];
     self.title = @"Nimbus CSS Demo";
   }
   return self;
@@ -58,7 +70,7 @@
 - (void)loadView {
   [super loadView];
 
-  [_dom registerView:self.view withCSSClass:@"background"];
+    [_dom registerView:self.view withCSSClass:@"background"];
   [self.view buildSubviews:@[
    _backgroundView = [[UIView alloc] init], @".noticeBox",
    @[
@@ -99,16 +111,37 @@
 
 -(void)buttonPress
 {
-  animationToggle = !animationToggle;
-  [_dom removeCssClass:animationToggle?@"noticeBox":@"noticeBoxEndpoint" fromView: _backgroundView];
-  [UIView animateWithDuration:.5 animations:^{
-    [_dom addCssClass:animationToggle?@"noticeBoxEndpoint":@"noticeBox" toView:_backgroundView];
-  }];
+//  animationToggle = !animationToggle;
+//  [_dom removeCssClass:animationToggle?@"noticeBox":@"noticeBoxEndpoint" fromView: _backgroundView];
+//  [UIView animateWithDuration:.5 animations:^{
+//    [_dom addCssClass:animationToggle?@"noticeBoxEndpoint":@"noticeBox" toView:_backgroundView];
+//  }];
+   
+    NSLog(@"posting new stylesheet");
+    NIStylesheetCache* stylesheetCache = [(AppDelegate *)[UIApplication sharedApplication].delegate stylesheetCache];
+    
+    
+    NIStylesheet* stylesheet = [stylesheetCache stylesheetWithPath:@"css/root/root.css"];
+    [stylesheet loadFromPath:@"root/root.css" pathPrefix:NIPathForDocumentsResource(nil)];
+
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    
+   
+    
+    
+    [nc postNotificationName:NIStylesheetDidChangeNotification
+                          object:stylesheet
+                        userInfo:nil];
+    
+    // apply the new css that was downloaded in the local disk
+    
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)stylesheetDidChange {
-  [_dom refresh];
+- (void)stylesheetDidChange:(NSNotification *) notification
+{
+    [_dom refresh];
 }
 
 @end

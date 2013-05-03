@@ -1,5 +1,5 @@
 .background {
-  background-color: #aaaaaa;
+  background-color: #000;
 }
 
 .noticeBox {
@@ -87,8 +87,8 @@ UIButton:highlighted
 }
 
 .textField:empty {
-  -mobile-text-key: "This is blue";
-  color: blue;
+  -mobile-text-key: "Hello yahoo";
+  color: white;
 }
 
 #box1 {
