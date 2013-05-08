@@ -90,6 +90,7 @@
     [_dom registerView:box withCSSClass:@"colorBox" andId:[NSString stringWithFormat:@"box%d",i]];
   }
   [_activityIndicator startAnimating];
+    
   
   NSLog(@"%@", [_dom descriptionForAllViews]);
 }
@@ -122,7 +123,8 @@
     
     
     NIStylesheet* stylesheet = [stylesheetCache stylesheetWithPath:@"css/root/root.css"];
-    [stylesheet loadFromPath:@"root/root.css" pathPrefix:NIPathForDocumentsResource(nil)];
+    //[stylesheet loadFromPath:@"root/root.css" pathPrefix:NIPathForDocumentsResource(nil)];
+    [stylesheet loadFromPath:@"css/root/root.css" pathPrefix:NIPathForBundleResource(nil, @"")];
 
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
     

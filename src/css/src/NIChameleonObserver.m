@@ -98,49 +98,53 @@ NSString* const NIJSONDidChangeNameKey = @"NIJSONNameKey";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)downloadStylesheetWithFilename:(NSString *)path {
-  NSURL* url = [NSURL URLWithString:[_host stringByAppendingString:path]];
-  NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-
-  AFHTTPRequestOperation* requestOp = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-
-  [requestOp setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSMutableArray* changedStylesheets = [NSMutableArray array];
-    NSArray* pathParts = [[operation.request.URL absoluteString] pathComponents];
-    NSString* resultPath = [[pathParts subarrayWithRange:NSMakeRange(2, [pathParts count] - 2)]
-                            componentsJoinedByString:@"/"];
-    NSString* rootPath = NIPathForDocumentsResource(nil);
-    NSString* hashedPath = [self pathFromPath:resultPath];
-    //NSString* diskPath = [rootPath stringByAppendingPathComponent:hashedPath];
-      
-      NSString* diskPath = [rootPath stringByAppendingPathComponent:resultPath];
-    [responseObject writeToFile:diskPath atomically:YES];
+    NSURL* url = [NSURL URLWithString:[_host stringByAppendingString:path]];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     
-    NIStylesheet* stylesheet = [_stylesheetCache stylesheetWithPath:resultPath loadFromDisk:NO];
-    if ([stylesheet loadFromPath:resultPath pathPrefix:rootPath delegate:self]) {
-      [changedStylesheets addObject:stylesheet];
-    }
+    AFHTTPRequestOperation* requestOp = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-    for (NSString* iteratingPath in _stylesheetPaths) {
-      stylesheet = [_stylesheetCache stylesheetWithPath:iteratingPath loadFromDisk:NO];
-      if ([stylesheet.dependencies containsObject:resultPath]) {
-        // This stylesheet has the changed stylesheet as a dependency so let's refresh it.
-        if ([stylesheet loadFromPath:iteratingPath pathPrefix:rootPath delegate:self]) {
-          [changedStylesheets addObject:stylesheet];
+    [requestOp setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSMutableArray* changedStylesheets = [NSMutableArray array];
+        NSArray* pathParts = [[operation.request.URL absoluteString] pathComponents];
+        NSString* resultPath = [[pathParts subarrayWithRange:NSMakeRange(2, [pathParts count] - 2)]
+                                componentsJoinedByString:@"/"];
+        
+        //NSString* rootPath = NIPathForDocumentsResource(nil);
+        NSString* rootPath = NIPathForBundleResource(nil, @"");
+        
+        NSString* hashedPath = [self pathFromPath:resultPath];
+        //NSString* diskPath = [rootPath stringByAppendingPathComponent:hashedPath];
+        
+        resultPath = [NSString stringWithFormat:@"css/%@", resultPath];
+        NSString* diskPath = [rootPath stringByAppendingPathComponent:resultPath];
+        [responseObject writeToFile:diskPath atomically:YES];
+        
+        NIStylesheet* stylesheet = [_stylesheetCache stylesheetWithPath:resultPath loadFromDisk:NO];
+        if ([stylesheet loadFromPath:resultPath pathPrefix:rootPath delegate:self]) {
+            [changedStylesheets addObject:stylesheet];
         }
-      }
-    }
-
-    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-    for (NIStylesheet* _stylesheet in changedStylesheets) {
-        NSLog(@"calling notification center for changedStyleSheet");
-      [nc postNotificationName:NIStylesheetDidChangeNotification
-                        object:_stylesheet
-                      userInfo:nil];
-    }
-
-  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-  }];
-  [_queue addOperation:requestOp];
+        
+        for (NSString* iteratingPath in _stylesheetPaths) {
+            stylesheet = [_stylesheetCache stylesheetWithPath:iteratingPath loadFromDisk:NO];
+            if ([stylesheet.dependencies containsObject:resultPath]) {
+                // This stylesheet has the changed stylesheet as a dependency so let's refresh it.
+                if ([stylesheet loadFromPath:iteratingPath pathPrefix:rootPath delegate:self]) {
+                    [changedStylesheets addObject:stylesheet];
+                }
+            }
+        }
+        
+        NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+        for (NIStylesheet* _stylesheet in changedStylesheets) {
+            NSLog(@"calling notification center for changedStyleSheet");
+            [nc postNotificationName:NIStylesheetDidChangeNotification
+                              object:_stylesheet
+                            userInfo:nil];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+    [_queue addOperation:requestOp];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

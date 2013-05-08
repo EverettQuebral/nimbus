@@ -93,6 +93,7 @@ static Class _rulesetClass;
   [[NSMutableDictionary alloc] initWithCapacity:[_rawRulesets count]];
 
   for (NSString* scope in _rawRulesets) {
+    //NSLog(@"NIStylesheet rebuildSignificantScope %@", scope);
     NSArray* parts = [scope componentsSeparatedByString:@" "];
     NSString* mostSignificantScopePart = [parts lastObject];
 
@@ -166,6 +167,8 @@ static Class _rulesetClass;
     _ruleSets = [[NSMutableDictionary alloc] init];
 
     NICSSParser* parser = [[NICSSParser alloc] init];
+      
+      NSLog(@"dictionaryForPath %@, pathPrefix %@", path, pathPrefix);
 
     NSDictionary* results = [parser dictionaryForPath:path
                                            pathPrefix:pathPrefix
