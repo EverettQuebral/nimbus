@@ -675,6 +675,7 @@ RULE_ELEMENT(marginBottom, MarginBottom, @"margin-bottom", NICSSUnit, unitFromCs
 RULE_ELEMENT(marginLeft, MarginLeft, @"margin-left", NICSSUnit, unitFromCssValues)
 RULE_ELEMENT(marginRight, MarginRight, @"margin-right", NICSSUnit, unitFromCssValues)
 RULE_ELEMENT(textKey, TextKey, @"-mobile-text-key", NSString*, stringFromCssValue)
+RULE_ELEMENT(textContent, TextContent, @"content", NSString*, stringFromCssValue)
 RULE_ELEMENT(buttonAdjust, ButtonAdjust, @"-ios-button-adjust", NICSSButtonAdjust, buttonAdjustFromCssValue)
 RULE_ELEMENT(verticalAlign, VerticalAlign, @"-mobile-content-valign", UIControlContentVerticalAlignment, controlVerticalAlignFromCssValues)
 RULE_ELEMENT(horizontalAlign, HorizontalAlign, @"-mobile-content-halign", UIControlContentHorizontalAlignment, controlHorizontalAlignFromCssValues)

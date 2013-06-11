@@ -88,6 +88,7 @@ typedef enum {
   UIEdgeInsets _contentInsets;
   UIEdgeInsets _imageInsets;
   NSString *_textKey;
+  NSString *_textContent;
   NSString* _relativeToId;
   NICSSUnit _marginTop;
   NICSSUnit _marginLeft;
@@ -160,6 +161,7 @@ typedef enum {
       int MaxHeight: 1;
       // 48
       int TextKey: 1;
+      int TextContent: 1;
       int ButtonAdjust: 1;
       int HorizontalPadding: 1;
       int VerticalPadding: 1;
@@ -317,6 +319,9 @@ typedef enum {
 
 - (BOOL)hasTextKey;
 - (NSString*)textKey; // -mobile-text-key
+
+- (BOOL)hasTextContent;
+- (NSString *) textContent;  // content
 
 - (BOOL) hasHorizontalPadding;
 - (NICSSUnit) horizontalPadding; // padding or -mobile-hPadding

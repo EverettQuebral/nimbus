@@ -46,6 +46,10 @@ NI_FIX_CATEGORY_BUG(UIButton_NIStyleable)
     NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
     [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:UIControlStateNormal];
   }
+  if (ruleSet.hasTextContent) {
+    NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
+    [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:UIControlStateNormal];
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,6 +111,10 @@ NI_FIX_CATEGORY_BUG(UIButton_NIStyleable)
       NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
       [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:state];
   }
+    if (ruleSet.hasTextContent) {
+        NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
+        [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:state];
+    }
   if (ruleSet.hasTextColor) {
     [self setTitleColor:ruleSet.textColor forState:state];
   }

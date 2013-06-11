@@ -19,6 +19,7 @@
 @implementation SamplePageView
 
 @synthesize label = _label;
+@synthesize label2 = _label2;
 @synthesize pageIndex = _pageIndex;
 @synthesize reuseIdentifier = _reuseIdentifier;
 
@@ -29,6 +30,7 @@
     _label.font = [UIFont systemFontOfSize:26];
     _label.textAlignment = NSTextAlignmentCenter;
     _label.backgroundColor = [UIColor clearColor];
+      
     
     [self addSubview:_label];
   }

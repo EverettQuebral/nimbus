@@ -60,6 +60,11 @@ NI_FIX_CATEGORY_BUG(UILabel_NIStyleable)
     NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
     [nis attach:self withSelector:@selector(setText:)];
   }
+    
+    if (ruleSet.hasTextContent) {
+        NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
+        [nis attach:self withSelector:@selector(setText:)];
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -32,7 +32,7 @@ var watchInterval = 500; // 500 ms makes it effectively instant.
 function start(watchPath,bonjour) {
 
     if (bonjour) {
-	mdns = require('mdns');
+	    mdns = require('mdns');
     }
     /**
      * Load a file from disk and pipe it down.
@@ -184,8 +184,8 @@ function start(watchPath,bonjour) {
     console.log("  Server: http://localhost:" + port + "/");
 
     if (bonjour) {
-	var ad = mdns.createAdvertisement(mdns.tcp(bonjour), port);
-	ad.start();
+	    var ad = mdns.createAdvertisement(mdns.tcp(bonjour), port);
+	    ad.start();
     }
 }
 

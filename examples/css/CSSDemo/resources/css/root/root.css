@@ -1,13 +1,13 @@
 .background {
-  background-color: #000;
+  background-color: #ddd;
 }
 
 .noticeBox {
   background-color: rgba(32, 32, 32, 0.5);
   border-radius: 20px;
   border: none;
-  width: -300px;
-  height: -400px;
+  width: -200px;
+  height: -300px;
   top: 10px;
   -mobile-halign: center;
 }
@@ -87,7 +87,8 @@ UIButton:highlighted
 }
 
 .textField:empty {
-  -mobile-text-key: "Hello yahoo";
+  /*-mobile-text-key: "Hello   dsd";*/
+  content : "Testing here";
   color: white;
 }
 

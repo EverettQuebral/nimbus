@@ -47,6 +47,10 @@ NI_FIX_CATEGORY_BUG(NITextField_NIStyleable)
         NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
         [nis attach:self withSelector:@selector(setPlaceholder:)];
     }
+    if (ruleSet.hasTextContent) {
+        NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
+        [nis attach:self withSelector:@selector(setPlaceholder:)];
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
