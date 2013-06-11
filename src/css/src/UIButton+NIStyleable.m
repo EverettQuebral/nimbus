@@ -42,10 +42,6 @@ NI_FIX_CATEGORY_BUG(UIButton_NIStyleable)
   if (ruleSet.hasFont) {
     self.titleLabel.font = ruleSet.font;
   }
-  if (ruleSet.hasTextKey) {
-    NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
-    [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:UIControlStateNormal];
-  }
   if (ruleSet.hasTextContent) {
     NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
     [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:UIControlStateNormal];
@@ -107,10 +103,7 @@ NI_FIX_CATEGORY_BUG(UIButton_NIStyleable)
   } else if ([pseudo caseInsensitiveCompare:@"disabled"] == NSOrderedSame) {
     state = UIControlStateDisabled;
   }
-  if (ruleSet.hasTextKey) {
-      NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
-      [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:state];
-  }
+
     if (ruleSet.hasTextContent) {
         NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
         [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:state];

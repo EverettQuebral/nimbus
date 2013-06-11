@@ -30,10 +30,6 @@ NI_FIX_CATEGORY_BUG(UITextField_NIStyleable)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)applyStyleWithRuleSet:(NICSSRuleset*)ruleSet forPseudoClass:(NSString *)pseudo inDOM:(NIDOM*)dom
 {
-    if (ruleSet.hasTextKey) {
-        NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
-        [nis attach:self withSelector:@selector(setPlaceholder:)];
-    }
     if (ruleSet.hasTextContent) {
         NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
         [nis attach:self withSelector:@selector(setPlaceholder:)];
@@ -43,10 +39,6 @@ NI_FIX_CATEGORY_BUG(UITextField_NIStyleable)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)applyTextFieldStyleBeforeViewWithRuleSet:(NICSSRuleset*)ruleSet inDOM:(NIDOM*)dom
 {
-    if (ruleSet.hasTextKey) {
-        NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
-        [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:UIControlStateNormal];
-    }
     if (ruleSet.hasTextContent) {
         NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
         [nis attach:self withSelector:@selector(setTitle:forState:) forControlState:UIControlStateNormal];

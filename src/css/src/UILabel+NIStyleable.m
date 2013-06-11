@@ -55,12 +55,7 @@ NI_FIX_CATEGORY_BUG(UILabel_NIStyleable)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)applyLabelStyleBeforeViewWithRuleSet:(NICSSRuleset *)ruleSet inDOM:(NIDOM *)dom
-{
-  if (ruleSet.hasTextKey) {
-    NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textKey];
-    [nis attach:self withSelector:@selector(setText:)];
-  }
-    
+{ 
     if (ruleSet.hasTextContent) {
         NIUserInterfaceString *nis = [[NIUserInterfaceString alloc] initWithKey:ruleSet.textContent];
         [nis attach:self withSelector:@selector(setText:)];

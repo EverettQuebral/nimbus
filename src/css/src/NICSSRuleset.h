@@ -87,7 +87,6 @@ typedef enum {
   UIEdgeInsets _titleInsets;
   UIEdgeInsets _contentInsets;
   UIEdgeInsets _imageInsets;
-  NSString *_textKey;
   NSString *_textContent;
   NSString* _relativeToId;
   NICSSUnit _marginTop;
@@ -160,7 +159,6 @@ typedef enum {
       int MaxWidth: 1;
       int MaxHeight: 1;
       // 48
-      int TextKey: 1;
       int TextContent: 1;
       int ButtonAdjust: 1;
       int HorizontalPadding: 1;
@@ -316,9 +314,6 @@ typedef enum {
 
 - (BOOL)hasMarginRight;
 - (NICSSUnit)marginRight; // margin-bottom
-
-- (BOOL)hasTextKey;
-- (NSString*)textKey; // -mobile-text-key
 
 - (BOOL)hasTextContent;
 - (NSString *) textContent;  // content
