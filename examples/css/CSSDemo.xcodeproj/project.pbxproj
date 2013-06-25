@@ -650,14 +650,14 @@
 		66832D3914421450003E413C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeffrey Verkoeyen (MCEM7RED85)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Usman Abbasi (Y4E2K2SADH)";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSSDemo/CSSDemo-Prefix.pch";
 				INFOPLIST_FILE = "CSSDemo/CSSDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "06911D0B-8A67-4981-A7DE-12C7A0C08610";
+				PROVISIONING_PROFILE = "FF1BEB97-E4FA-4AEA-A6FF-4F97C4FFBBC6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -665,14 +665,14 @@
 		66832D3A14421450003E413C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeffrey Verkoeyen (MCEM7RED85)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Usman Abbasi (Y4E2K2SADH)";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSSDemo/CSSDemo-Prefix.pch";
 				INFOPLIST_FILE = "CSSDemo/CSSDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "06911D0B-8A67-4981-A7DE-12C7A0C08610";
+				PROVISIONING_PROFILE = "FF1BEB97-E4FA-4AEA-A6FF-4F97C4FFBBC6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
